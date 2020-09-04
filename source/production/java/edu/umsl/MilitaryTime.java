@@ -3,39 +3,37 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MilitaryTime {
-    public static void main (String[] args) {
-
+    public static void main(String[] args) {
+        int hours = 0;
+        int minutes = 0;
         boolean retry = false;
-        System.out.println("In military time, please enter a number of hours followed by a number of minutes, I will subtract 45 minutes from it.");
-        Scanner input = new Scanner(System.in);
-        retry = false;
-        try {
-            int hours = input.nextInt(); // Input number of hours
-            int minutes = input.nextInt(); // Input number of minutes
-        } catch(InputMismatchException ex){
-                retry = true;
-                System.out.println("That is not an integer\n");
-        }
-        while (hours > 23 || hours < 0 || minutes < 0 || minutes > 59) { // If the input is outside of the range needed
-            retry = false;
-            try {
-                System.out.println("Please enter hours between 0 and 23, and minutes between 0 and 59.");
-                hours = input.nextInt();
-                minutes = input.nextInt();
-            } catch (InputMismatchException ex) {
-                retry = true;
-                System.out.println("That is not an integer\n");
-            }
-        }
+
+            do {
+                do {
+                    try {
+                        Scanner input = new Scanner(System.in);
+                        retry = false;
+                        System.out.println("Please enter hours between 0 and 23, and minutes between 0 and 59.  I will subtract 45 minutes from it.");
+                        hours = input.nextInt();
+                        minutes = input.nextInt();
+                    } catch (InputMismatchException ex) {
+                        retry = true;
+                        System.out.println("One or more of these inputs is not an integer.");
+                    } catch (Exception ex) {
+                        retry = true;
+                        System.out.println("Error.");
+                    }
+                } while (retry);
+            }  while (hours > 23 || hours < 0 || minutes < 0 || minutes > 59);
 
         if (minutes < 45) { // Need to mess with the hours if minutes is less than 45
             minutes = 45 - minutes;
             minutes = 60 - minutes;
-           if (hours == 0) {
-               hours = 24;
-           } else {
-               hours = hours - 1;
-           }
+            if (hours == 0) {
+                hours = 23;
+            } else {
+                hours = hours - 1;
+            }
 
         } else {
             minutes = minutes - 45;
