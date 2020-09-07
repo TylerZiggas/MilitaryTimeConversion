@@ -9,11 +9,11 @@ public class MilitaryTime {
         boolean retry = false;
 
             do {
-                do {
+                do { // Want to get past both of these without any input
                     try {
                         Scanner input = new Scanner(System.in);
                         retry = false;
-                        System.out.println("Please enter hours between 0 and 23, and minutes between 0 and 59.  I will subtract 45 minutes from it.");
+                        System.out.println("Please enter an amount of hours between 0 and 23, and an amount of minutes between 0 and 59.  I will subtract 45 minutes from it.");
                         hours = input.nextInt();
                         minutes = input.nextInt();
                     } catch (InputMismatchException ex) {
@@ -23,8 +23,8 @@ public class MilitaryTime {
                         retry = true;
                         System.out.println("Error.");
                     }
-                } while (retry);
-            }  while (hours > 23 || hours < 0 || minutes < 0 || minutes > 59);
+                } while (retry); // make sure the inputs are numbers
+            }  while (hours > 23 || hours < 0 || minutes < 0 || minutes > 59); // make sure the number input is correct
 
         if (minutes < 45) { // Need to mess with the hours if minutes is less than 45
             minutes = 45 - minutes;
@@ -34,7 +34,6 @@ public class MilitaryTime {
             } else {
                 hours = hours - 1;
             }
-
         } else {
             minutes = minutes - 45;
         }
